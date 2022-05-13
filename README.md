@@ -1,1 +1,1 @@
-# lucasproject
+In this project I want to create an application that shows you and visualizes the iarquality of any city.
