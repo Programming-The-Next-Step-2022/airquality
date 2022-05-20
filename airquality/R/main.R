@@ -1,9 +1,9 @@
-library(httr)
-library(jsonlite)
-library(ggplot2)
-library(dplyr)
-library(lubridate)
-
+#' @import httr
+#' @import jsonlite
+#' @import ggplot2
+#' @import dplyr
+#' @import lubridate
+NULL
 
 #' Current Airquality Index
 #'
@@ -39,7 +39,6 @@ current_aq <- function(city, country){
   geocode_char <- rawToChar(geocode_raw$content)
   geocode_dat <- fromJSON(geocode_char)
 
-  #print(geocode_dat[1 , c(3,4)])
 
   #current airquality
   base <- 'http://api.openweathermap.org/data/2.5/'
@@ -89,11 +88,7 @@ current_aq <- function(city, country){
 #' @export
 history_aq <- function(city, country){
 
-  #testing the function
-  city <- "Amsterdam"
-  country <- "NL"
-
-  #geocoding
+    #geocoding
   geocode_base <- 'http://api.openweathermap.org/geo/1.0/direct?q='
   geocode_limit <- '&limit=1&appid='
   geocode_appid <- '03782ca206139ca19d564d33c2813127'

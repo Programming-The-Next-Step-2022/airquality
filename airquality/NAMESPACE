@@ -2,3 +2,8 @@
 
 export(current_aq)
 export(history_aq)
+import(dplyr)
+import(ggplot2)
+import(httr)
+import(jsonlite)
+import(lubridate)
