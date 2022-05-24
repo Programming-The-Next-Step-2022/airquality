@@ -19,7 +19,7 @@ NULL
 #' @details It is important to enter the city and the country.
 #'
 #' @export
-geocoding <- function(city, country){
+geocoding <- function(city = "Amsterdam", country = "NL"){
 
   geocode_base <- 'http://api.openweathermap.org/geo/1.0/direct?q='
   geocode_limit <- '&limit=1&appid='
@@ -54,7 +54,7 @@ geocoding <- function(city, country){
 #' @details The airquality index ranges from 1 = Good to 5 = Very Poor.
 #'
 #' @export
-current_aq_list <- function(city, country){
+current_aq_list <- function(city = "Amsterdam", country = "NL"){
 
   coordinates <- geocoding(city, country)
 
@@ -97,7 +97,7 @@ current_aq_list <- function(city, country){
 #' @details The airquality index ranges from 1 = Good to 5 = Very Poor.
 #'
 #' @export
-history_aq_list <- function(city, country){
+history_aq_list <- function(city = "Amsterdam", country = "NL"){
 
   coordinates <- geocoding(city, country)
 
@@ -155,7 +155,7 @@ history_aq_list <- function(city, country){
 #' @details
 #'
 #' @export
-plot_comp_hist <- function(city, country, component){
+plot_comp_hist <- function(city = "Amsterdam", country = "NL", component = "co"){
 
   data <- history_aq_list(city, country)
   hist_comp_df <- data.frame(data[[2]][[2]], data[[2]][[3]])
@@ -163,8 +163,18 @@ plot_comp_hist <- function(city, country, component){
   hist_comp_df$time <- as_datetime(hist_comp_df$data..2....3..)
 
   hist_comp_df %>%
-    ggplot(aes(x = time, y = .data[[component]])) +
-    geom_line()
+    ggplot(aes(x = time, y = .data[["co"]])) +
+    geom_line(color = "deepskyblue3") +
+
+    scale_x_datetime(labels = scales::date_format("%Y-%m-%d "),
+                     date_breaks = "24 hours") +
+    ggtitle(paste0(component, " concentration in ", city, " over the past two weeks")) +
+    xlab("Time") +
+    ylab(paste0(component, " concentration")) +
+
+    theme_classic() +
+    theme(axis.text.x=element_text(angle=60, hjust=1),
+          plot.title = element_text(hjust = 0.5))
 
 }
 
@@ -183,7 +193,7 @@ plot_comp_hist <- function(city, country, component){
 #' @details
 #'
 #' @export
-plot_aqi_hist <- function(city, country){
+plot_aqi_hist <- function(city = "Amsterdam", country = "NL"){
 
   data <- history_aq_list(city, country)
   hist_aqi_df <- data.frame(data[[2]][[1]], data[[2]][[3]])
@@ -193,7 +203,17 @@ plot_aqi_hist <- function(city, country){
 
   hist_aqi_df %>%
     ggplot(aes(x = time, y = aqi)) +
-    geom_line()
+    geom_line(color = "deepskyblue3") +
+    scale_x_datetime(labels = scales::date_format("%Y-%m-%d "),
+                     date_breaks = "24 hours") +
+    ylim(1,5) +
+    ggtitle(paste0("Airquality Index of ", city ," over the past two weeks")) +
+    xlab("Time") +
+    ylab("Airquality Index") +
+
+    theme_classic() +
+    theme(axis.text.x=element_text(angle=60, hjust=1),
+          plot.title = element_text(hjust = 0.5))
 }
 
 
