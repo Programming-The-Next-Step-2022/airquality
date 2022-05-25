@@ -3,6 +3,8 @@
 #' @import ggplot2
 #' @import dplyr
 #' @import lubridate
+#' @import scales
+#' @import plotly
 NULL
 
 #' Geocoding
@@ -36,7 +38,8 @@ geocoding <- function(city = "Amsterdam", country = "NL"){
 
   geocode_raw <- GET(geocode_url)
   geocode_char <- rawToChar(geocode_raw$content)
-  return(geocode_dat <- fromJSON(geocode_char))
+  geocode_dat <- fromJSON(geocode_char)
+  return(geocode_dat)
 
 }
 
@@ -162,7 +165,7 @@ plot_comp_hist <- function(city = "Amsterdam", country = "NL", component = "co")
 
   hist_comp_df$time <- as_datetime(hist_comp_df$data..2....3..)
 
-  hist_comp_df %>%
+  comp_hist_plot <- hist_comp_df %>%
     ggplot(aes(x = time, y = .data[["co"]])) +
     geom_line(color = "deepskyblue3") +
 
@@ -176,6 +179,7 @@ plot_comp_hist <- function(city = "Amsterdam", country = "NL", component = "co")
     theme(axis.text.x=element_text(angle=60, hjust=1),
           plot.title = element_text(hjust = 0.5))
 
+  ggplotly(comp_hist_plot)
 }
 
 #' Airquality Index Plot (past two weeks)
@@ -201,7 +205,7 @@ plot_aqi_hist <- function(city = "Amsterdam", country = "NL"){
   hist_aqi_df$time <- as_datetime(hist_aqi_df$data..2....3..)
 
 
-  hist_aqi_df %>%
+  aqi_hist_plot <- hist_aqi_df %>%
     ggplot(aes(x = time, y = aqi)) +
     geom_line(color = "deepskyblue3") +
     scale_x_datetime(labels = scales::date_format("%Y-%m-%d "),
@@ -214,6 +218,8 @@ plot_aqi_hist <- function(city = "Amsterdam", country = "NL"){
     theme_classic() +
     theme(axis.text.x=element_text(angle=60, hjust=1),
           plot.title = element_text(hjust = 0.5))
+
+  ggplotly(aqi_hist_plot)
 }
 
 
