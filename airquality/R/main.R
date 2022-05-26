@@ -54,12 +54,12 @@ geocoding <- function(city = "Amsterdam", country = "NL"){
 #'
 #' @return The airquality index (aqi) and the subcomponents (co, no, no2, o3, so2, pm2_5, pm10, nh3) in a list object.
 #'
-#' @examples current_aq_list("Amsterdam", "NL")
+#' @examples current_aq_df("Amsterdam", "NL")
 #'
 #' @details The airquality index ranges from 1 = Good to 5 = Very Poor.
 #'
 #' @export
-current_aq_list <- function(city = "Amsterdam", country = "NL"){
+current_aq_df <- function(city = "Amsterdam", country = "NL"){
 
   coordinates <- geocoding(city, country)
 
@@ -101,7 +101,7 @@ current_aq_list <- function(city = "Amsterdam", country = "NL"){
 
   colnames(current_aq_df) <- c("Component", "Index / Concentration")
 
-  return(gt(current_aq_df))
+  return(current_aq_df)
 
   }
 
@@ -273,30 +273,30 @@ plot_aqi_hist <- function(city = "Amsterdam", country = "NL") {
 current_aq_table <- function(){
 
 
-ist_data <- unlist(current_aq_list("Istanbul", "TUR"))
-lon_data <- unlist(current_aq_list("London", "GBR"))
-ber_data <- unlist(current_aq_list("Berlin", "GER"))
-mad_data <- unlist(current_aq_list("Madrid", "ESP"))
-kyi_data <- unlist(current_aq_list("Kyiv", "UKR"))
-rom_data <- unlist(current_aq_list("Rome", "ITA"))
-buc_data <- unlist(current_aq_list("Bucharest", "ROM"))
-par_data <- unlist(current_aq_list("Paris", "FRA"))
-vie_data <- unlist(current_aq_list("Vienna", "AUS"))
-ham_data <- unlist(current_aq_list("Hamburg", "GER"))
+ist_data <- current_aq_df("Istanbul", "TUR")
+lon_data <- current_aq_df("London", "GBR")
+ber_data <- current_aq_df("Berlin", "GER")
+mad_data <- current_aq_df("Madrid", "ESP")
+kyi_data <- current_aq_df("Kyiv", "UKR")
+rom_data <- current_aq_df("Rome", "ITA")
+buc_data <- current_aq_df("Bucharest", "ROM")
+par_data <- current_aq_df("Paris", "FRA")
+vie_data <- current_aq_df("Vienna", "AUS")
+ham_data <- current_aq_df("Hamburg", "GER")
 
 
 Cities <- c("Istanbul", "London", "Berlin", "Madrid", "Kyiv",
             "Rome", "Bucharest", "Paris", "Vienna", "Hamburg")
 
-AQI <- c(ist_data[3], lon_data[3], ber_data[3], mad_data[3],
-         kyi_data[3], rom_data[3], buc_data[3], par_data[3],
-         vie_data[3], ham_data[3])
+AQI <- c(ist_data[1,2], lon_data[1,2], ber_data[1,2], mad_data[1,2],
+         kyi_data[1,2], rom_data[1,2], buc_data[1,2], par_data[1,2],
+         vie_data[1,2], ham_data[1,2])
 
 
 cap_data <- data.frame(Cities, AQI)
 
 
-#target specific cells
+#coloring cells
 gt(cap_data) %>%
   tab_header("Current Airquality Index (AQI) of Top 10 Major Europan Cities") %>%
 
