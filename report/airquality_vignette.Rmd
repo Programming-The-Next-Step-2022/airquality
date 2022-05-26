@@ -1,0 +1,52 @@
+---
+title: "airquality_vignette"
+author: "Lucas Rosenbusch"
+date: "5/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(devtools)
+```
+
+Welcome to the **airquality** package. This package uses various data from the [\textcolor{blue}{OpenWeatherMap API}](https://openweathermap.org/api).
+
+It includes various functions that help you to get an overview about the airquality in any town. You can:
+
+-   retrieve the current airquality index and airquality subcomponents
+-   plot the airquality index and concentration of air quality components for the past two weeks
+-   retrieve and compare the airquality index of the ten biggest European cities
+-   get the current weather data
+
+In the following, each function is explained in detail and examples are provided.
+
+# How to install the airquality package
+```{r warning = FALSE}
+library(airquality)
+```
+
+\newpage
+
+# Current Airquality Data (data frame)
+This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
+
+* Air Quality Index (AQI) 
+  + the aqi ranges from 1 = good to 5 = very Poor 
+* Carbon monoxide concentration (CO) 
+* Nitrogen monoxide concentration (NO) 
+* Nitrogen dioxide concentration (NO2)
+* Ozone concentration (O3) 
+* Sulphur dioxide concentration (SO2) 
+* Particulates concentration (PM2_5 and PM_10) 
+* Ammonia concentration (NH3)
+```{r warning = FALSE}
+library(airquality)
+current_aq_df("Amsterdam", "NL")
+```
+
+To display the output to users in a nicer way, you can use the gt::gt() function 
+```{r}
+library(gt)
+gt(current_aq_df())
+```
