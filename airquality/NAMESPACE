@@ -2,6 +2,7 @@
 
 export(current_aq_df)
 export(current_aq_table)
+export(current_weather)
 export(geocoding)
 export(history_aq_list)
 export(plot_aqi_hist)

@@ -8,6 +8,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(devtools)
+library(gt)
+library(airquality)
+
 ```
 
 Welcome to the **airquality** package. This package uses various data from the [\textcolor{blue}{OpenWeatherMap API}](https://openweathermap.org/api).
@@ -21,14 +24,15 @@ It includes various functions that help you to get an overview about the airqual
 
 In the following, each function is explained in detail and examples are provided.
 
-# How to install the airquality package
+## How to Install the Airquality Package
 ```{r warning = FALSE}
-library(airquality)
+#github_install can only be added when the week 3 branch is merged
+#install_github('Programming-The-Next-Step-2022/airquality')
 ```
 
 \newpage
 
-# Current Airquality Data (data frame)
+## Current Airquality Data (data frame)
 This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
 
 * Air Quality Index (AQI) 
@@ -41,12 +45,51 @@ This function takes the city and country (use ISO 3166 country codes) of interes
 * Particulates concentration (PM2_5 and PM_10) 
 * Ammonia concentration (NH3)
 ```{r warning = FALSE}
-library(airquality)
 current_aq_df("Amsterdam", "NL")
 ```
 
 To display the output to users in a nicer way, you can use the gt::gt() function 
 ```{r}
-library(gt)
 gt(current_aq_df())
 ```
+
+## Plotting the AQI for the past two weeks
+This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a plot showing the average AQI per day over the last two weeks.
+
+```{r}
+plot_aqi_hist("Paris", "FRA")
+```
+
+## Plotting Air Quality Subcomponents for the Past two Weeks
+This function takes the city, the country (use ISO 3166 country codes), and the desired subcomponent (e.g., co) as arguments. It outputs a plot showing the average concentration of for example carbon monoxide over the last two weeks.
+
+```{r}
+plot_comp_hist("Rome", "ITA")
+```
+
+
+## Current AQI of the 10 largest European Cities
+This function shows the current AQI in the ten largest European cities. The values are colored according the AQI.
+```{r}
+current_aq_table()
+```
+
+## Current Weather Data
+This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
+
+* Current Weather 
+* Current Temperature 
+* Feels Like Temperature 
+* Min Temperature 
+* Max Temperature 
+* Air Pressure 
+* Humidity 
+* Visibility 
+* Wind Speed 
+* Wind Direction 
+* Sunrise 
+* Sunset 
+```{r}
+current_weather("Berlin", "GER")
+```
+

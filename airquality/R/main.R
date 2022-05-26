@@ -348,6 +348,56 @@ gt(cap_data) %>%
 
 }
 
+#' Current Weather Data
+#'
+#' With this function you can get the current weather data of any town.
+#'
+#' @param city City (in quotation marks)
+#' @param country Country Code (according to ISO 3166; e.g.: NL for Netherlands; in quotation marks)
+#'
+#' @return Current weather data.
+#'
+#' @examples current_weather("Amsterdam", "NL")
+#'
+#'
+#' @export
+current_weather <- function(city = "Amsterdam", country = "NL"){
+coordinates <- geocoding(city, country)
+
+#api url
+base <- "https://api.openweathermap.org/data/2.5/weather?lat="
+weather_url_1 <- "&lon="
+weather_url_2 <- "&appid="
+appid <- '03782ca206139ca19d564d33c2813127'
+weather_url_3 <- "&units=metric"
+
+
+weather_url <- paste0(base, coordinates[1,3], weather_url_1,
+                      coordinates[1,4], weather_url_2, appid, weather_url_3)
+
+
+#get api data
+weather_raw <- GET(weather_url)
+weather_char <- rawToChar(weather_raw$content)
+weather_dat <- fromJSON(weather_char)
+
+weather_dat[[2]][[3]]
+
+#transform api data
+weather_df <- as.data.frame(unlist(weather_dat))
+weather_df$Component <- rownames(weather_df)
+weather_df <- weather_df[, c(2,1)]
+rownames(weather_df) <- seq(1:nrow(weather_df))
+colnames(weather_df) <- c("Component", "Data")
+weather_df <- weather_df[c(5, 8:16, 22:23),]
+weather_df$Component <- c("Current Weather", "Current Temperature",
+                          "Feels Like Temperature", "Min Temperature",
+                          "Max Temperature", "Air Pressure", "Humidity",
+                          "Visibility", "Wind Speed", "Wind Direction",
+                          "Sunrise", "Sunset")
+
+gt(weather_df)
+}
 
 
 
