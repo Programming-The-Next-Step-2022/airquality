@@ -86,8 +86,24 @@ current_aq_list <- function(city = "Amsterdam", country = "NL"){
   current_aq_char <- rawToChar(current_aq_raw$content)
   current_aq <- fromJSON(current_aq_char)
 
-  return(current_aq)
-}
+  #create data frame
+  current_aq_convert <- as.data.frame(current_aq)
+  current_aq_df <- as.data.frame(t(current_aq_convert))
+
+  #arrange columns
+  current_aq_df$Component <- rownames(current_aq_df)
+  current_aq_df <- current_aq_df[-c(1,2,12), c(2,1)]
+  rownames(current_aq_df) <- seq(1:nrow(current_aq_df))
+
+  #renaming
+  current_aq_df$Component <- c("AQI", "CO", "NO", "NO2", "O3",
+                               "SO2", "PM2_5", "PM_10", "NH3")
+
+  colnames(current_aq_df) <- c("Component", "Index / Concentration")
+
+  return(gt(current_aq_df))
+
+  }
 
 #' Two Week Airquality Data
 #'
