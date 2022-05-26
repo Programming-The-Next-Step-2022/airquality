@@ -24,6 +24,7 @@ NULL
 #' @export
 geocoding <- function(city = "Amsterdam", country = "NL"){
 
+  #api url
   geocode_base <- 'http://api.openweathermap.org/geo/1.0/direct?q='
   geocode_limit <- '&limit=1&appid='
   geocode_appid <- '03782ca206139ca19d564d33c2813127'
@@ -62,7 +63,7 @@ current_aq_list <- function(city = "Amsterdam", country = "NL"){
 
   coordinates <- geocoding(city, country)
 
-  #current airquality
+  #api url
   base <- 'http://api.openweathermap.org/data/2.5/'
   which <- 'air_pollution?'
   lat <- 'lat='
@@ -80,6 +81,7 @@ current_aq_list <- function(city = "Amsterdam", country = "NL"){
                 appid
   )
 
+  #get api data
   current_aq_raw <- GET(url)
   current_aq_char <- rawToChar(current_aq_raw$content)
   current_aq <- fromJSON(current_aq_char)
