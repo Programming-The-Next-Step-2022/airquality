@@ -4,7 +4,7 @@
 \alias{current_aq_list}
 \title{Current Airquality Data}
 \usage{
-current_aq_list(city, country)
+current_aq_list(city = "Amsterdam", country = "NL")
 }
 \arguments{
 \item{city}{City (in quotation marks)}

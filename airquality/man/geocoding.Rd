@@ -4,7 +4,7 @@
 \alias{geocoding}
 \title{Geocoding}
 \usage{
-geocoding(city, country)
+geocoding(city = "Amsterdam", country = "NL")
 }
 \arguments{
 \item{city}{City (in quotation marks)}

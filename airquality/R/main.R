@@ -5,6 +5,7 @@
 #' @import lubridate
 #' @import scales
 #' @import plotly
+#' @import gt
 NULL
 
 #' Geocoding
@@ -240,6 +241,94 @@ plot_aqi_hist <- function(city = "Amsterdam", country = "NL") {
 
 }
 
+
+#' Current Airquality Index of Top 10 Major European Cities
+#'
+#' This function produces a table with the current airquality index (AQI) of the top 10 major European cities.
+#'
+#'
+#'
+#' @examples current_aq_table
+#'
+#'
+#' @export
+current_aq_table <- function(){
+
+
+ist_data <- unlist(current_aq_list("Istanbul", "TUR"))
+lon_data <- unlist(current_aq_list("London", "GBR"))
+ber_data <- unlist(current_aq_list("Berlin", "GER"))
+mad_data <- unlist(current_aq_list("Madrid", "ESP"))
+kyi_data <- unlist(current_aq_list("Kyiv", "UKR"))
+rom_data <- unlist(current_aq_list("Rome", "ITA"))
+buc_data <- unlist(current_aq_list("Bucharest", "ROM"))
+par_data <- unlist(current_aq_list("Paris", "FRA"))
+vie_data <- unlist(current_aq_list("Vienna", "AUS"))
+ham_data <- unlist(current_aq_list("Hamburg", "GER"))
+
+
+Cities <- c("Istanbul", "London", "Berlin", "Madrid", "Kyiv",
+            "Rome", "Bucharest", "Paris", "Vienna", "Hamburg")
+
+AQI <- c(ist_data[3], lon_data[3], ber_data[3], mad_data[3],
+         kyi_data[3], rom_data[3], buc_data[3], par_data[3],
+         vie_data[3], ham_data[3])
+
+
+cap_data <- data.frame(Cities, AQI)
+
+
+#target specific cells
+gt(cap_data) %>%
+  tab_header("Current Airquality Index (AQI) of Top 10 Major Europan Cities") %>%
+
+  tab_style(
+    style = list(
+      cell_fill(color = "chartreuse2")
+    ),
+    locations = cells_body(
+      columns = AQI,
+      rows = AQI == 1)
+  ) %>%
+
+  tab_style(
+    style = list(
+      cell_fill(color = "gold")
+    ),
+    locations = cells_body(
+      columns = AQI,
+      rows = AQI == 2)
+  ) %>%
+
+  tab_style(
+    style = list(
+      cell_fill(color = "orange")
+    ),
+    locations = cells_body(
+      columns = AQI,
+      rows = AQI == 3)
+  ) %>%
+
+  tab_style(
+    style = list(
+      cell_fill(color = "orangered1")
+    ),
+    locations = cells_body(
+      columns = AQI,
+      rows = AQI == 4)
+  ) %>%
+
+  tab_style(
+    style = list(
+      cell_fill(color = "red4"),
+      cell_text(color = "white")
+    ),
+    locations = cells_body(
+      columns = AQI,
+      rows = AQI == 5)
+  )
+
+}
 
 
 

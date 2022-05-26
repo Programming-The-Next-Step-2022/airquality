@@ -4,7 +4,7 @@
 \alias{history_aq_list}
 \title{Two Week Airquality Data}
 \usage{
-history_aq_list(city, country)
+history_aq_list(city = "Amsterdam", country = "NL")
 }
 \arguments{
 \item{city}{City (in quotation marks)}
