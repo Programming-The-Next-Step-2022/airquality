@@ -185,7 +185,7 @@ plot_comp_hist <- function(city = "Amsterdam", country = "NL", component = "co")
   hist_comp_df$time <- as_datetime(hist_comp_df$data..2....3..)
 
   comp_hist_plot <- hist_comp_df %>%
-    ggplot(aes(x = time, y = .data[["co"]])) +
+    ggplot(aes(x = time, y = .data[[component]])) +
     geom_line(color = "deepskyblue3") +
 
     scale_x_datetime(labels = scales::date_format("%Y-%m-%d "),
