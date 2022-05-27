@@ -64,7 +64,7 @@ plot_aqi_hist("Paris", "FRA")
 This function takes the city, the country (use ISO 3166 country codes), and the desired subcomponent (e.g., co) as arguments. It outputs a plot showing the average concentration of for example carbon monoxide over the last two weeks.
 
 ```{r}
-plot_comp_hist("Rome", "ITA")
+plot_comp_hist("Rome", "ITA", "co")
 ```
 
 
