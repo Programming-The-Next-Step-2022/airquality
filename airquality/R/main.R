@@ -103,7 +103,7 @@ current_aq_df <- function(city = "Amsterdam", country = "NL"){
 
   return(current_aq_df)
 
-  }
+}
 
 #' Two Week Airquality Data
 #'
@@ -273,78 +273,78 @@ plot_aqi_hist <- function(city = "Amsterdam", country = "NL") {
 current_aq_table <- function(){
 
 
-ist_data <- current_aq_df("Istanbul", "TUR")
-lon_data <- current_aq_df("London", "GBR")
-ber_data <- current_aq_df("Berlin", "GER")
-mad_data <- current_aq_df("Madrid", "ESP")
-kyi_data <- current_aq_df("Kyiv", "UKR")
-rom_data <- current_aq_df("Rome", "ITA")
-buc_data <- current_aq_df("Bucharest", "ROM")
-par_data <- current_aq_df("Paris", "FRA")
-vie_data <- current_aq_df("Vienna", "AUS")
-ham_data <- current_aq_df("Hamburg", "GER")
+  ist_data <- current_aq_df("Istanbul", "TUR")
+  lon_data <- current_aq_df("London", "GBR")
+  ber_data <- current_aq_df("Berlin", "GER")
+  mad_data <- current_aq_df("Madrid", "ESP")
+  kyi_data <- current_aq_df("Kyiv", "UKR")
+  rom_data <- current_aq_df("Rome", "ITA")
+  buc_data <- current_aq_df("Bucharest", "ROM")
+  par_data <- current_aq_df("Paris", "FRA")
+  vie_data <- current_aq_df("Vienna", "AUS")
+  ham_data <- current_aq_df("Hamburg", "GER")
 
 
-Cities <- c("Istanbul", "London", "Berlin", "Madrid", "Kyiv",
-            "Rome", "Bucharest", "Paris", "Vienna", "Hamburg")
+  Cities <- c("Istanbul", "London", "Berlin", "Madrid", "Kyiv",
+              "Rome", "Bucharest", "Paris", "Vienna", "Hamburg")
 
-AQI <- c(ist_data[1,2], lon_data[1,2], ber_data[1,2], mad_data[1,2],
-         kyi_data[1,2], rom_data[1,2], buc_data[1,2], par_data[1,2],
-         vie_data[1,2], ham_data[1,2])
-
-
-cap_data <- data.frame(Cities, AQI)
+  AQI <- c(ist_data[1,2], lon_data[1,2], ber_data[1,2], mad_data[1,2],
+           kyi_data[1,2], rom_data[1,2], buc_data[1,2], par_data[1,2],
+           vie_data[1,2], ham_data[1,2])
 
 
-#coloring cells
-gt(cap_data) %>%
-  tab_header("Current Airquality Index (AQI) of Top 10 Major Europan Cities") %>%
+  cap_data <- data.frame(Cities, AQI)
 
-  tab_style(
-    style = list(
-      cell_fill(color = "chartreuse2")
-    ),
-    locations = cells_body(
-      columns = AQI,
-      rows = AQI == 1)
-  ) %>%
 
-  tab_style(
-    style = list(
-      cell_fill(color = "gold")
-    ),
-    locations = cells_body(
-      columns = AQI,
-      rows = AQI == 2)
-  ) %>%
+  #coloring cells
+  gt(cap_data) %>%
+    tab_header("Current Airquality Index (AQI) of Top 10 Major Europan Cities") %>%
 
-  tab_style(
-    style = list(
-      cell_fill(color = "orange")
-    ),
-    locations = cells_body(
-      columns = AQI,
-      rows = AQI == 3)
-  ) %>%
+    tab_style(
+      style = list(
+        cell_fill(color = "chartreuse2")
+      ),
+      locations = cells_body(
+        columns = AQI,
+        rows = AQI == 1)
+    ) %>%
 
-  tab_style(
-    style = list(
-      cell_fill(color = "orangered1")
-    ),
-    locations = cells_body(
-      columns = AQI,
-      rows = AQI == 4)
-  ) %>%
+    tab_style(
+      style = list(
+        cell_fill(color = "gold")
+      ),
+      locations = cells_body(
+        columns = AQI,
+        rows = AQI == 2)
+    ) %>%
 
-  tab_style(
-    style = list(
-      cell_fill(color = "red4"),
-      cell_text(color = "white")
-    ),
-    locations = cells_body(
-      columns = AQI,
-      rows = AQI == 5)
-  )
+    tab_style(
+      style = list(
+        cell_fill(color = "orange")
+      ),
+      locations = cells_body(
+        columns = AQI,
+        rows = AQI == 3)
+    ) %>%
+
+    tab_style(
+      style = list(
+        cell_fill(color = "orangered1")
+      ),
+      locations = cells_body(
+        columns = AQI,
+        rows = AQI == 4)
+    ) %>%
+
+    tab_style(
+      style = list(
+        cell_fill(color = "red4"),
+        cell_text(color = "white")
+      ),
+      locations = cells_body(
+        columns = AQI,
+        rows = AQI == 5)
+    )
 
 }
 
@@ -362,43 +362,42 @@ gt(cap_data) %>%
 #'
 #' @export
 current_weather <- function(city = "Amsterdam", country = "NL"){
-coordinates <- geocoding(city, country)
+  coordinates <- geocoding(city, country)
 
-#api url
-base <- "https://api.openweathermap.org/data/2.5/weather?lat="
-weather_url_1 <- "&lon="
-weather_url_2 <- "&appid="
-appid <- '03782ca206139ca19d564d33c2813127'
-weather_url_3 <- "&units=metric"
-
-
-weather_url <- paste0(base, coordinates[1,3], weather_url_1,
-                      coordinates[1,4], weather_url_2, appid, weather_url_3)
+  #api url
+  base <- "https://api.openweathermap.org/data/2.5/weather?lat="
+  weather_url_1 <- "&lon="
+  weather_url_2 <- "&appid="
+  appid <- '03782ca206139ca19d564d33c2813127'
+  weather_url_3 <- "&units=metric"
 
 
-#get api data
-weather_raw <- GET(weather_url)
-weather_char <- rawToChar(weather_raw$content)
-weather_dat <- fromJSON(weather_char)
+  weather_url <- paste0(base, coordinates[1,3], weather_url_1,
+                        coordinates[1,4], weather_url_2, appid, weather_url_3)
 
-weather_dat[[2]][[3]]
 
-#transform api data
-weather_df <- as.data.frame(unlist(weather_dat))
-weather_df$Component <- rownames(weather_df)
-weather_df <- weather_df[, c(2,1)]
-rownames(weather_df) <- seq(1:nrow(weather_df))
-colnames(weather_df) <- c("Component", "Data")
-weather_df <- weather_df[c(5, 8:16, 22:23),]
-weather_df$Component <- c("Current Weather", "Current Temperature",
-                          "Feels Like Temperature", "Min Temperature",
-                          "Max Temperature", "Air Pressure", "Humidity",
-                          "Visibility", "Wind Speed", "Wind Direction",
-                          "Sunrise", "Sunset")
+  #get api data
+  weather_raw <- GET(weather_url)
+  weather_char <- rawToChar(weather_raw$content)
+  weather_dat <- fromJSON(weather_char)
 
-gt(weather_df)
+  weather_dat[[2]][[3]]
+
+  #transform api data
+  weather_df <- as.data.frame(unlist(weather_dat))
+  weather_df$Component <- rownames(weather_df)
+  weather_df <- weather_df[, c(2,1)]
+  rownames(weather_df) <- seq(1:nrow(weather_df))
+  colnames(weather_df) <- c("Component", "Data")
+  weather_df <- weather_df[c(5, 8:16, 22:23),]
+  weather_df$Component <- c("Current Weather", "Current Temperature",
+                            "Feels Like Temperature", "Min Temperature",
+                            "Max Temperature", "Air Pressure", "Humidity",
+                            "Visibility", "Wind Speed", "Wind Direction",
+                            "Sunrise", "Sunset")
+
+  gt(weather_df)
 }
-
 
 
 
