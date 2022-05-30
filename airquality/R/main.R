@@ -6,6 +6,10 @@
 #' @import scales
 #' @import plotly
 #' @import gt
+#' @import stringr
+#' @import maps
+#' @import mapdata
+#' @import ggmap
 NULL
 
 #' Geocoding
@@ -399,5 +403,98 @@ current_weather <- function(city = "Amsterdam", country = "NL"){
   gt(weather_df)
 }
 
+#' Airquality Map of European Capitals
+#'
+#'
+#'
+#'
+#' @examples aqi_map()
+#'
+#'
+#' @export
+aqi_map <- function(){
+
+  #read list of capital cities
+  city_list <- read.csv("/Users/lucas/Documents/Master/UvA/Programming Next Step/maps_test/country-capitals.csv")
+
+  #transform capital city data
+  city_list <- city_list[city_list$ContinentName == "Europe",]
+  city_list["aqi"] <- NA
+  city_list[3,2] <- "Andorra"
+  city_list[23,2] <- "Port"
+  city_list[24,2] <- "Vatican"
+  city_list[30,2] <- "Helier"
+  city_list[47,2] <- "Marino"
+  city_list[31,5] <- "KOS"
+  city_list<- city_list[-c(1,46, 58 ,52),]
 
 
+  #for loop to add aqi to city_list
+  for (i in 2:nrow(city_list)) {
+
+    city <- city_list[i, 2]
+    country <- city_list[i, 5]
+
+
+    print(airquality::current_aq_df(city, country)[1,2])
+    print(city)
+
+    city_list$aqi[i] <- airquality::current_aq_df(city, country)[1,2]
+  }
+
+
+
+  #creating map data
+  world <- map_data("world", city_list$CountryName)
+
+  #city coordinates
+  labs <- data.frame(
+    long = as.numeric(city_list$CapitalLongitude),
+    lat = as.numeric(city_list$CapitalLatitude),
+    names = as.character(city_list$CapitalName),
+    aqi = as.numeric(city_list$aqi),
+    stringsAsFactors = FALSE
+  )
+
+  #plot map
+  ggplot() +
+    geom_polygon(data = world,
+                 aes(x=long, y = lat,
+                     group = group)) +
+    coord_fixed(1.3) +
+    geom_point(data = labs,
+               aes(x = long,
+                   y = lat,
+                   group = aqi),
+               color = "yellow",
+               size = 1)
+
+  ggplot() +
+    geom_polygon(data = world, aes(x=long, y = lat, group = group)) +
+
+    coord_fixed(1.3) +
+
+    geom_point(data = labs,
+               aes(x = long, y = lat, color = factor(aqi)),
+               size = 2) +
+
+    geom_text(data = labs, aes(x = long, y = lat, label = as.character(names)),
+              hjust = 1.5,
+              color = "orange",
+              size = 2) +
+
+    scale_color_manual(values = c("chartreuse2",
+                                  "gold",
+                                  "orange",
+                                  "orangered1",
+                                  "red4")) +
+
+    xlab("") +
+    ylab("") +
+    ggtitle("Current AQI in European Capitals") +
+    labs(color = "Airquality Index") +
+
+    theme_void() +
+    theme(panel.background = element_rect(fill='ivory', colour='ivory2'),
+          plot.title = element_text(hjust = 0.5))
+}
