@@ -4,7 +4,7 @@
 \alias{plot_comp_hist}
 \title{Airquality Subcomponents Plot (past two weeks)}
 \usage{
-plot_comp_hist(city, country, component)
+plot_comp_hist(city = "Amsterdam", country = "NL", component = "co")
 }
 \arguments{
 \item{city}{City (in quotation marks)}

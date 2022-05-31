@@ -4,7 +4,7 @@
 \alias{plot_aqi_hist}
 \title{Airquality Index Plot (past two weeks)}
 \usage{
-plot_aqi_hist(city, country)
+plot_aqi_hist(city = "Amsterdam", country = "NL")
 }
 \arguments{
 \item{city}{City (in quotation marks)}
