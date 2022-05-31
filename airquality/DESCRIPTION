@@ -1,6 +1,6 @@
 Package: airquality
 Title: Airquality Checker
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: 
     person("Lucas", "Rosenbusch", , "lucas.rosenbusch@student.uva.nl", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -12,3 +12,6 @@ RoxygenNote: 7.1.2
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
+LazyData: true

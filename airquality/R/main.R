@@ -415,7 +415,7 @@ current_weather <- function(city = "Amsterdam", country = "NL"){
 aqi_map <- function(){
 
   #read list of capital cities
-  city_list <- read.csv("/Users/lucas/Documents/Master/UvA/Programming Next Step/maps_test/country-capitals.csv")
+  #city_list <- read.csv("/Users/lucas/Documents/Master/UvA/Programming Next Step/maps_test/country-capitals.csv")
 
   #transform capital city data
   city_list <- city_list[city_list$ContinentName == "Europe",]
@@ -476,7 +476,7 @@ aqi_map <- function(){
 
     geom_point(data = labs,
                aes(x = long, y = lat, color = factor(aqi)),
-               size = 2) +
+               size = 3.5) +
 
     geom_text(data = labs, aes(x = long, y = lat, label = as.character(names)),
               hjust = 1.5,
