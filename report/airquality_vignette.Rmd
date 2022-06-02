@@ -1,7 +1,7 @@
 ---
-title: "airquality_vignette"
+title: "Airquality Package Vignette"
 author: "Lucas Rosenbusch"
-date: "5/26/2022"
+date: "6/03/2022"
 output: html_document
 ---
 
@@ -10,17 +10,36 @@ knitr::opts_chunk$set(echo = TRUE)
 library(devtools)
 library(gt)
 library(airquality)
-
+library(tinytex)
 ```
 
-Welcome to the **airquality** package. This package uses various data from the [\textcolor{blue}{OpenWeatherMap API}](https://openweathermap.org/api).
+```{r, include = FALSE}
+url <- "https://images.unsplash.com/photo-1582980752625-10783b273e2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+```
 
-It includes various functions that help you to get an overview about the airquality in any town. You can:
+![](`r url`){width=50%}
 
--   retrieve the current airquality index and airquality subcomponents
--   plot the airquality index and concentration of air quality components for the past two weeks
--   retrieve and compare the airquality index of the ten biggest European cities
--   get the current weather data
+Welcome to the **Airquality** package. This package uses various data from the [OpenWeatherMap API](https://openweathermap.org/api) and helps you to get on overview about the current airquality data in Europe or any town worldwide.
+
+[WHO Statement about Airquality](https://www.who.int/health-topics/air-pollution#tab=tab_1):  
+
+Air pollution is contamination of the indoor or outdoor environment by any chemical, physical or biological agent that modifies the natural characteristics of the atmosphere.
+
+Household combustion devices, motor vehicles, industrial facilities and forest fires are common sources of air pollution. Pollutants of major public health concern include particulate matter, carbon monoxide, ozone, nitrogen dioxide and sulfur dioxide. Outdoor and indoor air pollution cause respiratory and other diseases and are important sources of morbidity and mortality. 
+
+WHO data show that almost all of the global population (99%) breathe air that exceeds WHO guideline limits and contains high levels of pollutants, with low- and middle-income countries suffering from the highest exposures.
+
+Air quality is closely linked to the earth’s climate and ecosystems globally. Many of the drivers of air pollution (i.e. combustion of fossil fuels) are also sources of greenhouse gas emissions. Policies to reduce air pollution, therefore, offer a win-win strategy for both climate and health, lowering the burden of disease attributable to air pollution, as well as contributing to the near- and long-term mitigation of climate change.
+
+## Package Functions
+
+This package can:
+
+-   Retrieve the current airquality index and airquality subcomponents of any town worldwide
+-   Plot the airquality index and concentration of air quality components for the past two weeks of any town worldwide
+-   Retrieve and compare the airquality index of the ten biggest European cities
+-   Get the current weather data for any town worldwide
+-   Generate a map that shows the current airquality of all European Capitals
 
 In the following, each function is explained in detail and examples are provided.
 
@@ -30,13 +49,10 @@ In the following, each function is explained in detail and examples are provided
 #install_github('Programming-The-Next-Step-2022/airquality')
 ```
 
-\newpage
-
 ## Current Airquality Data (data frame)
 This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
 
-* Air Quality Index (AQI) 
-  + the aqi ranges from 1 = good to 5 = very Poor 
+* Air Quality Index (AQI, ranging from 1 = good to 5 = very poor) 
 * Carbon monoxide concentration (CO) 
 * Nitrogen monoxide concentration (NO) 
 * Nitrogen dioxide concentration (NO2)

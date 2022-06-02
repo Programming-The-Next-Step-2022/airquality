@@ -103,7 +103,7 @@ current_aq_df <- function(city = "Amsterdam", country = "NL"){
   current_aq_df$Component <- c("AQI", "CO", "NO", "NO2", "O3",
                                "SO2", "PM2_5", "PM_10", "NH3")
 
-  colnames(current_aq_df) <- c("Component", "Index / Concentration")
+  colnames(current_aq_df) <- c("Component", "Index / Concentration in μg/m3")
 
   return(current_aq_df)
 
@@ -393,12 +393,12 @@ current_weather <- function(city = "Amsterdam", country = "NL"){
   weather_df <- weather_df[, c(2,1)]
   rownames(weather_df) <- seq(1:nrow(weather_df))
   colnames(weather_df) <- c("Component", "Data")
-  weather_df <- weather_df[c(5, 8:16, 22:23),]
+  weather_df <- weather_df[c(5, 8:16),]
   weather_df$Component <- c("Current Weather", "Current Temperature",
                             "Feels Like Temperature", "Min Temperature",
                             "Max Temperature", "Air Pressure", "Humidity",
-                            "Visibility", "Wind Speed", "Wind Direction",
-                            "Sunrise", "Sunset")
+                            "Visibility", "Wind Speed", "Wind Direction")
+
 
   gt(weather_df)
 }
