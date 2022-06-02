@@ -109,3 +109,11 @@ This function takes the city and country (use ISO 3166 country codes) of interes
 current_weather("Berlin", "GER")
 ```
 
+## Shiny App Including all Functions
+
+The package also allows you to launch a shiny app that combines all functions in a user-friendly way.
+
+```{r, eval = FALSE}
+airquality_app()
+```
+
