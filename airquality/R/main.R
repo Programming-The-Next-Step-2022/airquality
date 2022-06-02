@@ -1,16 +1,19 @@
 #' @import httr
-#' @import jsonlite
 #' @import ggplot2
 #' @import dplyr
 #' @import lubridate
 #' @import scales
-#' @import plotly
 #' @import gt
 #' @import stringr
 #' @import maps
 #' @import mapdata
 #' @import ggmap
 NULL
+
+#' @importFrom jsonlite fromJSON
+#' @importFrom plotly ggplotly renderPlotly plotlyOutput
+NULL
+
 
 #' Geocoding
 #'
@@ -45,7 +48,15 @@ geocoding <- function(city = "Amsterdam", country = "NL"){
   geocode_raw <- GET(geocode_url)
   geocode_char <- rawToChar(geocode_raw$content)
   geocode_dat <- fromJSON(geocode_char)
+
+
+  if(length(geocode_dat) == 0) {
+    warning("There is probably a typo in the city or country entered!")
+  }
+
   return(geocode_dat)
+
+
 
 }
 
