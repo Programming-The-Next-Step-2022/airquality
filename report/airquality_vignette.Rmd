@@ -36,14 +36,15 @@ This package can:
 -   Retrieve and compare the airquality index of the ten biggest European cities
 -   Get the current weather data for any town worldwide
 -   Generate a map that shows the current airquality of all European Capitals
+-   Combine all of these functions in a R-Shiny app
 
 In the following, each function is explained in detail and examples are provided.
 
 ## How to Install the Airquality Package
 
-```{r warning = FALSE}
-#github_install can only be added when the week 3 branch is merged
-#install_github('Programming-The-Next-Step-2022/airquality')
+```{r warning = FALSE, eval = FALSE}
+install_github("Programming-The-Next-Step-2022/airquality/airquality")
+library(airquality)
 ```
 
 ## Current Airquality Data (data frame)
@@ -111,8 +112,7 @@ This function takes the city and country (use ISO 3166 country codes) of interes
 -   Visibility
 -   Wind Speed
 -   Wind Direction
--   Sunrise
--   Sunset
+
 
 ```{r}
 current_weather("Berlin", "GER")
@@ -128,7 +128,9 @@ This function generates a map with live AQI data from all European capitals.
 
 ## Shiny App Including all Functions
 
-The package also allows you to launch a shiny app that combines all functions in a user-friendly way.
+The package also allows you to launch a shiny app that combines all functions in a user-friendly way.  
+
+Please be aware that this map might take a short moment to load.
 
 ```{r, eval = FALSE}
 airquality_app()

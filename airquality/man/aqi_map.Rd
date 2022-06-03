@@ -7,7 +7,7 @@
 aqi_map()
 }
 \description{
-Airquality Map of European Capitals
+This function creates a map with live AQI data from all European capitals.
 }
 \examples{
 aqi_map()
