@@ -25,4 +25,6 @@ Imports:
   stringr,
   maps,
   mapdata,
-  ggmap
+  ggmap,
+  shiny,
+  shinythemes
