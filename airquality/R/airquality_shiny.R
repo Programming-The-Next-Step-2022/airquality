@@ -124,6 +124,15 @@ airquality_app <- function(){
                         ),
 
                         tabPanel(title = "AQI Map EUR",
+                                 fluidRow(
+                                   column(
+                                     p("Please note that this map might take a moment to load."),
+                                     style="text-align:justify;color:black;background-color:
+                             lightgrey;padding:15px;border-radius:10px",
+                                     width = 3
+                                   )
+
+                                 ),
                                  plotOutput(outputId = "aqi_map",
                                             width = "100%",
                                             height = "600")
@@ -179,5 +188,5 @@ airquality_app <- function(){
   # Create Shiny app ----
   shinyApp(ui = ui, server = server)
 
-
 }
+

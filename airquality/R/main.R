@@ -208,7 +208,7 @@ plot_comp_hist <- function(city = "Amsterdam", country = "NL", component = "co")
                      date_breaks = "24 hours") +
     ggtitle(paste0(component, " concentration in ", city, " over the past two weeks")) +
     xlab("Time") +
-    ylab(paste0(component, " concentration")) +
+    ylab(paste0(component, " concentration in μg/m3")) +
 
     theme_classic() +
     theme(axis.text.x = element_text(angle = 60, hjust = 1),
@@ -411,6 +411,7 @@ current_weather <- function(city = "Amsterdam", country = "NL") {
                             "Feels Like Temperature", "Min Temperature",
                             "Max Temperature", "Air Pressure", "Humidity",
                             "Visibility", "Wind Speed", "Wind Direction")
+  weather_df$Unit <- c("", "Degrees Celsius", "", "", "", "hPa", "%", "Km", "Meter/sec", "Degrees")
 
 
   gt(weather_df)
@@ -418,7 +419,7 @@ current_weather <- function(city = "Amsterdam", country = "NL") {
 
 #' Airquality Map of European Capitals
 #'
-#'
+#' This function creates a map with live AQI data from all European capitals.
 #'
 #'
 #' @examples aqi_map()
