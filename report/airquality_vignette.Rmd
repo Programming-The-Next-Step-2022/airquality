@@ -1,7 +1,7 @@
 ---
-title: "airquality_vignette"
+title: "Airquality Package Vignette"
 author: "Lucas Rosenbusch"
-date: "5/26/2022"
+date: "6/03/2022"
 output: html_document
 ---
 
@@ -10,50 +10,71 @@ knitr::opts_chunk$set(echo = TRUE)
 library(devtools)
 library(gt)
 library(airquality)
-
+library(tinytex)
 ```
 
-Welcome to the **airquality** package. This package uses various data from the [\textcolor{blue}{OpenWeatherMap API}](https://openweathermap.org/api).
+![](https://images.unsplash.com/photo-1483825366482-1265f6ea9bc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80){width="50%"}
 
-It includes various functions that help you to get an overview about the airquality in any town. You can:
+Welcome to the **Airquality** package. This package uses various data from the [OpenWeatherMap API](https://openweathermap.org/api) and helps you to get on overview about the current airquality data in Europe or any town worldwide.
 
--   retrieve the current airquality index and airquality subcomponents
--   plot the airquality index and concentration of air quality components for the past two weeks
--   retrieve and compare the airquality index of the ten biggest European cities
--   get the current weather data
+[WHO Statement about Airquality](https://www.who.int/health-topics/air-pollution#tab=tab_1):
+
+Air pollution is contamination of the indoor or outdoor environment by any chemical, physical or biological agent that modifies the natural characteristics of the atmosphere.
+
+Household combustion devices, motor vehicles, industrial facilities and forest fires are common sources of air pollution. Pollutants of major public health concern include particulate matter, carbon monoxide, ozone, nitrogen dioxide and sulfur dioxide. Outdoor and indoor air pollution cause respiratory and other diseases and are important sources of morbidity and mortality.
+
+WHO data show that almost all of the global population (99%) breathe air that exceeds WHO guideline limits and contains high levels of pollutants, with low- and middle-income countries suffering from the highest exposures.
+
+Air quality is closely linked to the earth's climate and ecosystems globally. Many of the drivers of air pollution (i.e. combustion of fossil fuels) are also sources of greenhouse gas emissions. Policies to reduce air pollution, therefore, offer a win-win strategy for both climate and health, lowering the burden of disease attributable to air pollution, as well as contributing to the near- and long-term mitigation of climate change.
+
+## Package Functions
+
+This package can:
+
+-   Retrieve the current airquality index and airquality subcomponents of any town worldwide
+-   Plot the airquality index and concentration of air quality components for the past two weeks of any town worldwide
+-   Retrieve and compare the airquality index of the ten biggest European cities
+-   Get the current weather data for any town worldwide
+-   Generate a map that shows the current airquality of all European Capitals
 
 In the following, each function is explained in detail and examples are provided.
 
 ## How to Install the Airquality Package
+
 ```{r warning = FALSE}
 #github_install can only be added when the week 3 branch is merged
 #install_github('Programming-The-Next-Step-2022/airquality')
 ```
 
-\newpage
-
 ## Current Airquality Data (data frame)
-This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
 
-* Air Quality Index (AQI) 
-  + the aqi ranges from 1 = good to 5 = very Poor 
-* Carbon monoxide concentration (CO) 
-* Nitrogen monoxide concentration (NO) 
-* Nitrogen dioxide concentration (NO2)
-* Ozone concentration (O3) 
-* Sulphur dioxide concentration (SO2) 
-* Particulates concentration (PM2_5 and PM_10) 
-* Ammonia concentration (NH3)
+This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the:
+
+-   Air Quality Index (AQI, ranging from 1 = good to 5 = very poor)
+-   Carbon monoxide concentration (CO)
+-   Nitrogen monoxide concentration (NO)
+-   Nitrogen dioxide concentration (NO2)
+-   Ozone concentration (O3)
+-   Sulphur dioxide concentration (SO2)
+-   Particulates concentration (PM2_5 and PM_10)
+-   Ammonia concentration (NH3)
+
+This table shows what the AQI and some subcomponents mean:
+
+![](images/components_overview.png){width="60%"}
+
 ```{r warning = FALSE}
 current_aq_df("Amsterdam", "NL")
 ```
 
-To display the output to users in a nicer way, you can use the gt::gt() function 
+To display the output to users in a nicer way, you can use the gt::gt() function
+
 ```{r}
 gt(current_aq_df())
 ```
 
 ## Plotting the AQI for the past two weeks
+
 This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a plot showing the average AQI per day over the last two weeks.
 
 ```{r}
@@ -61,35 +82,60 @@ plot_aqi_hist("Paris", "FRA")
 ```
 
 ## Plotting Air Quality Subcomponents for the Past two Weeks
+
 This function takes the city, the country (use ISO 3166 country codes), and the desired subcomponent (e.g., co) as arguments. It outputs a plot showing the average concentration of for example carbon monoxide over the last two weeks.
 
 ```{r}
 plot_comp_hist("Rome", "ITA", "co")
 ```
 
-
 ## Current AQI of the 10 largest European Cities
+
 This function shows the current AQI in the ten largest European cities. The values are colored according the AQI.
+
 ```{r}
 current_aq_table()
 ```
 
 ## Current Weather Data
-This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the: 
 
-* Current Weather 
-* Current Temperature 
-* Feels Like Temperature 
-* Min Temperature 
-* Max Temperature 
-* Air Pressure 
-* Humidity 
-* Visibility 
-* Wind Speed 
-* Wind Direction 
-* Sunrise 
-* Sunset 
+This function takes the city and country (use ISO 3166 country codes) of interest as arguments. It outputs a data frame containing the:
+
+-   Current Weather
+-   Current Temperature
+-   Feels Like Temperature
+-   Min Temperature
+-   Max Temperature
+-   Air Pressure
+-   Humidity
+-   Visibility
+-   Wind Speed
+-   Wind Direction
+-   Sunrise
+-   Sunset
+
 ```{r}
 current_weather("Berlin", "GER")
 ```
 
+## AQI Map for Europe
+
+This function generates a map with live AQI data from all European capitals.
+
+```{r}
+#aqi_map()
+```
+
+## Shiny App Including all Functions
+
+The package also allows you to launch a shiny app that combines all functions in a user-friendly way.
+
+```{r, eval = FALSE}
+airquality_app()
+```
+
+**See two screenshots below:** 
+
+![](images/screenshot_shiny_1-01.png)
+
+![](images/screenshot_shiny_2-01.png)

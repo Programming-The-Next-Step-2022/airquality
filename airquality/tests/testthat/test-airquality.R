@@ -1,14 +1,14 @@
-test_that('aqi is mentioned', {
+test_that('check for correct city name', {
 
-  string <- "aqi"
-  expect_match(string, "aqi")
+ city_from_api <- geocoding("Berlin", "GER")
+ city_from_api$name
+ expect_match(city_from_api$name, "Berlin")
 
 })
 
-test_that('output is a data.frame', {
+test_that('geocoding throws correct error for typos', {
 
-  test_df <- current_aq("Amsterdam", "NL")
-  expect_true(is.data.frame(test_df))
+  expect_warning(geocoding("Ammmmsterdam", "NL"),
+                 "There is probably a typo in the city or country entered!")
+
 })
-
-
