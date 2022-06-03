@@ -17,7 +17,8 @@ NULL
 
 #' Geocoding
 #'
-#' This function gives the coordinates of a given city. It used for further functions which require coordinates instead of city names.
+#' This function gives the coordinates of a given city.
+#' It used for further functions which require coordinates instead of city names.
 #'
 #' @param city City (in quotation marks)
 #' @param country Country Code (according to ISO 3166; e.g.: NL for Netherlands; in quotation marks)
@@ -29,12 +30,12 @@ NULL
 #' @details It is important to enter the city and the country.
 #'
 #' @export
-geocoding <- function(city = "Amsterdam", country = "NL"){
+geocoding <- function(city = "Amsterdam", country = "NL") {
 
   #api url
-  geocode_base <- 'http://api.openweathermap.org/geo/1.0/direct?q='
-  geocode_limit <- '&limit=1&appid='
-  geocode_appid <- '03782ca206139ca19d564d33c2813127'
+  geocode_base <- "http://api.openweathermap.org/geo/1.0/direct?q="
+  geocode_limit <- "&limit=1&appid="
+  geocode_appid <- "03782ca206139ca19d564d33c2813127"
 
   geocode_url <- paste0(
     geocode_base,
@@ -447,8 +448,8 @@ aqi_map <- function(){
     country <- city_list[i, 5]
 
 
-    print(airquality::current_aq_df(city, country)[1,2])
-    print(city)
+    #print(airquality::current_aq_df(city, country)[1,2])
+    #print(city)
 
     city_list$aqi[i] <- airquality::current_aq_df(city, country)[1,2]
   }

@@ -15,7 +15,8 @@ geocoding(city = "Amsterdam", country = "NL")
 Coordinates (latitude, longitude)
 }
 \description{
-This function gives the coordinates of a given city. It used for further functions which require coordinates instead of city names.
+This function gives the coordinates of a given city.
+It used for further functions which require coordinates instead of city names.
 }
 \details{
 It is important to enter the city and the country.
