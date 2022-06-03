@@ -27,4 +27,5 @@ Imports:
   mapdata,
   ggmap,
   shiny,
-  shinythemes
+  shinythemes,
+  plotly
