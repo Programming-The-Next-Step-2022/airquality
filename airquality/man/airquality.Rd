@@ -3,17 +3,42 @@
 \docType{package}
 \name{airquality}
 \alias{airquality}
-\title{This packages allows to retrieve different air quality data from the  OpenWeatherMap API.}
+\title{Airquality Package}
 \description{
-The package currently has two functions. One to get current airquality data and one to plot the airquality data from the last two weeks.
+The package contains the following functions:
 }
 \section{Current airquality}{
 
-\emph{current_aq}
+\emph{current_aq_df()}
 }
 
-\section{Last two weeks airquality}{
+\section{Plotting the AQI for the past two weeks}{
 
-\emph{history_aq}
+\emph{plot_aqi_hist()}
+}
+
+\section{Plotting Air Quality Subcomponents for the Past two Weeks}{
+
+\emph{plot_comp_hist()}
+}
+
+\section{Current AQI of the 10 largest European Cities}{
+
+\emph{current_aq_table()}
+}
+
+\section{Current Weather Data}{
+
+\emph{current_weather()}
+}
+
+\section{AQI Map for Europe}{
+
+\emph{aqi_map()}
+}
+
+\section{Shiny App}{
+
+\emph{airquality_app()}
 }
 
